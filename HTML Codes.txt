@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Location Tracking Page | Safety Band</title>
+</head>
+<body>
+<h1>Safety Band Location Tracking Page</h1>
+<p> Location was last updated: <span id="time">&lt;not yet&gt;</span></p>
+<div id="map" style="height: 85%; width: 80%; margin-left: 10%"></div>
+<script>
+var server_url = '172.20.10.4';
+var map = null;
+var last_time = -1;
+var marker = null;
+function initMap() {
+var location = {lat: 39.0788175, lng: -77.1771353};
+map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: location
+});
+}
+function Get(yourUrl){
+    var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.open("GET",yourUrl,false);
+    Httpreq.send(null);
+    return Httpreq.responseText;          
+}
+function highlightFor(id,color,seconds){
+    var element = document.getElementById(id)
+    var origcolor = element.style.backgroundColor
+    element.style.backgroundColor = color;
+    var t = setTimeout(function(){
+       element.style.backgroundColor = origcolor;
+    },(seconds*1000));
+}
+window.setInterval(function(){
+	var json_obj = JSON.parse(Get("http://" + server_url + "/location"));
+	if(last_time < json_obj.time) {
+	last_time = json_obj.time;
+	if(marker) {
+	marker.setMap(null);
+	}
+	marker = new google.maps.Marker({ position : json_obj.location, title: 'Current Location', visible : true, map : map});
+	console.log('what');
+	map.panTo(json_obj.location);
+	var date = new Date(0);
+	date.setUTCSeconds(last_time);
+	document.getElementById("time").innerHTML = date.toLocaleTimeString();
+	highlightFor('time', 'yellow', 2); 
+	console.log('updated!');
+	}
+}, 10000);
+</script>
+<script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzjA9dlMnI89VG8UbIh-qsRC90ed5Rd6A&callback=initMap">
+    </script>
+</body>
+</html>

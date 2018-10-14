@@ -1,0 +1,17 @@
+(dp0
+S'time'
+p1
+F1520688247.855862
+sVlocation
+p2
+(dp3
+Vlat
+p4
+F39.0788017
+sVlng
+p5
+F-77.1771902
+ssVaccuracy
+p6
+F46.0
+s.

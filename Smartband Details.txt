@@ -1,0 +1,24 @@
+Vinu's Laptop:
+
+Open Finder > Developer (Under Favorites) > Smartband
+
+index.html: webpage
+server.py: gets location from the wifi bee, serves location to webpage
+location.txt: used by server to keep track of location
+example_location.txt: example of what location.txt should look like
+
+to run server, open terminal (black box on dock), type 'ifconfig | grep inet', take IP address in second to last line
+Update network name + password in Toshiba (ssid, password) and server IP in Toshiba (serverIP) and in webpage (index.html, server_url)
+then type 'cd Developer/Smartband'
+then type 'sudo python server.py'
+to end server, press 'Control + C' a few times
+('sudo nc -l 0.0.0.0 80' is for seeing exactly what the wifi bee is sending)
+to open webpage, navigate to the IP address from step 1s
+
+
+
+Toshiba:
+
+Explorer > Documents > Examples > Working_ExperimentalWiFi_2_14
+
+Upload to Arduino - make sure to not have serial monitor open while uploading code! (open serial monitor once it says 'Done uploading')
